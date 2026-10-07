@@ -4,9 +4,9 @@ all: 08-O001-EN.raw 08-O002-EN.raw
 decoration-%.tx: decoration.asm
 	python ../scripts/regionalize.py $< $@ $* $*
 decoration-%.o: decoration-%.tx
-	rgbasm -o $@ $<
+	../maketools/rgbasm.exe -o $@ $<
 decoration-%.gbc: decoration-%.o
-	rgblink -o $@ $<
+	../maketools/rgblink.exe -o $@ $<
 decoration-%.bin: decoration-%.gbc
 	python ../scripts/stripgbc.py $< $@
 decoration-%.mev: decoration-%.bin
@@ -15,32 +15,32 @@ decoration-%.mev: decoration-%.bin
 prologue-%.tx: prologue.asm
 	python ../scripts/regionalize.py $< $@ $* $*
 prologue-%.o: prologue-%.tx
-	rgbasm -o $@ $<
+	../maketools/rgbasm.exe -o $@ $<
 prologue-%.gbc: prologue-%.o
-	rgblink -o $@ $<
+	../maketools/rgblink.exe -o $@ $<
 prologue-%.bin: prologue-%.gbc
 	python ../scripts/stripgbc.py $< $@
 
 08-O001-%.tx: 08-O001.asm decoration-%.mev prologue-%.bin
 	python ../scripts/ereadertext.py $< $@ $*
 08-O001-%.o: 08-O001-%.tx
-	rgbasm -o $@ $<
+	../maketools/rgbasm.exe -o $@ $<
 08-O001-%.gbc: 08-O001-%.o
-	rgblink -o $@ $<
+	../maketools/rgblink.exe -o $@ $<
 08-O001-%.z80: 08-O001-%.gbc
 	python ../scripts/stripgbc.py $< $@
 08-O001-%.vpk: 08-O001-%.z80
-	./nevpk -c -i $< -o $@
+	../maketools/nevpk.exe -c -i $< -o $@
 08-O001-%.raw: 08-O001-%.vpk
-	./nedcmake -i $< -o $@ -type 1 -region 1
+	../maketools/nedcmake.exe -i $< -o $@ -type 1 -region 1
 	mv $@-01.raw $@
 
 tickets-%.tx: tickets.asm
 	python ../scripts/regionalize.py $< $@ $* $*
 tickets-%.o: tickets-%.tx
-	rgbasm -o $@ $<
+	../maketools/rgbasm.exe -o $@ $<
 tickets-%.gbc: tickets-%.o
-	rgblink -o $@ $<
+	../maketools/rgblink.exe -o $@ $<
 tickets-%.bin: tickets-%.gbc
 	python ../scripts/stripgbc.py $< $@
 dtickets-%.mev: tickets-%.bin
@@ -49,15 +49,15 @@ dtickets-%.mev: tickets-%.bin
 08-O002-%.tx: 08-O002.asm tickets-%.mev prologue-%.bin
 	python ../scripts/ereadertext.py $< $@ $*
 08-O002-%.o: 08-O002-%.tx
-	rgbasm -o $@ $<
+	../maketools/rgbasm.exe -o $@ $<
 08-O002-%.gbc: 08-O002-%.o
-	rgblink -o $@ $<
+	../maketools/rgblink.exe -o $@ $<
 08-O002-%.z80: 08-O002-%.gbc
 	python ../scripts/stripgbc.py $< $@
 08-O002-%.vpk: 08-O002-%.z80
-	./nevpk -c -i $< -o $@
+	../maketools/nevpk.exe -c -i $< -o $@
 08-O002-%.raw: 08-O002-%.vpk
-	./nedcmake -i $< -o $@ -type 1 -region 1
+	../maketools/nedcmake.exe -i $< -o $@ -type 1 -region 1
 	mv $@-01.raw $@
 
 clean:

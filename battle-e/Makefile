@@ -19,9 +19,9 @@ verify:
 trainers/%-EN.tx: trainers/%.asm
 	python ../scripts/regionalize.py $< $@ EN EN
 trainers/%.o: trainers/%.tx
-	rgbasm -o $@ $<
+	../maketools/rgbasm.exe -o $@ $<
 trainers/%.gbc: trainers/%.o
-	rgblink -o $@ $<
+	../maketools/rgblink.exe -o $@ $<
 trainers/%.bin: trainers/%.gbc
 	python ../scripts/stripgbc.py $< $@
 trainers/%.z80: trainers/%.gbc
@@ -33,9 +33,9 @@ trainers/%.mev: trainers/%.bin
 berries/%-EN.tx: berries/%.asm
 	python ../scripts/regionalize.py $< $@ EN EN
 berries/%.o: berries/%.tx
-	rgbasm -o $@ $<
+	../maketools/rgbasm.exe -o $@ $<
 berries/%.gbc: berries/%.o
-	rgblink -o $@ $<
+	../maketools/rgblink.exe -o $@ $<
 berries/%.bin: berries/%.gbc
 	python ../scripts/stripgbc.py $< $@
 berries/%.z80: berries/%.gbc
@@ -47,9 +47,9 @@ berries/%.mev: berries/%.bin
 prologue-%.tx: prologue.asm
 	python ../scripts/regionalize.py $< $@ $* $*
 prologue-%.o: prologue-%.tx
-	rgbasm -o $@ $<
+	../maketools/rgbasm.exe -o $@ $<
 prologue-%.gbc: prologue-%.o
-	rgblink -o $@ $<
+	../maketools/rgblink.exe -o $@ $<
 prologue-%.bin: prologue-%.gbc
 	python ../scripts/stripgbc.py $< $@
 
@@ -59,56 +59,56 @@ battletrainer-%.tx: battletrainer.asm prologue-%.bin
 08-A%-EN.tx: 08-A%.asm battletrainer-EN.tx
 	python ../scripts/ereadertext.py $< $@ EN
 08-A%.o: 08-A%.tx
-	rgbasm -o $@ $<
+	../maketools/rgbasm.exe -o $@ $<
 08-A%.gbc: 08-A%.o
-	rgblink -o $@ $<
+	../maketools/rgblink.exe -o $@ $<
 08-A%.z80: 08-A%.gbc
 	python ../scripts/stripgbc.py $< $@
 08-A%.vpk: 08-A%.z80
-	./nevpk -c -i $< -o $@
+	../maketools/nevpk.exe -c -i $< -o $@
 08-A%.raw: 08-A%.vpk
-	./nedcmake -i $< -o $@ -type 1 -region 1
+	../maketools/nedcmake.exe -i $< -o $@ -type 1 -region 1
 
 08-B%-EN.tx: 08-B%.asm battletrainer-EN.tx
 	python ../scripts/ereadertext.py $< $@ EN
 08-B%.o: 08-B%.tx
-	rgbasm -o $@ $<
+	../maketools/rgbasm.exe -o $@ $<
 08-B%.gbc: 08-B%.o
-	rgblink -o $@ $<
+	../maketools/rgblink.exe -o $@ $<
 08-B%.z80: 08-B%.gbc
 	python ../scripts/stripgbc.py $< $@
 08-B%.vpk: 08-B%.z80
-	./nevpk -c -i $< -o $@
+	../maketools/nevpk.exe -c -i $< -o $@
 08-B%.raw: 08-B%.vpk
-	./nedcmake -i $< -o $@ -type 1 -region 1
+	../maketools/nedcmake.exe -i $< -o $@ -type 1 -region 1
 
 129-B%-EN.tx: 129-B%.asm battletrainer-EN.tx
 	python ../scripts/ereadertext.py $< $@ EN
 129-B%.o: 129-B%.tx
-	rgbasm -o $@ $<
+	../maketools/rgbasm.exe -o $@ $<
 129-B%.gbc: 129-B%.o
-	rgblink -o $@ $<
+	../maketools/rgblink.exe -o $@ $<
 129-B%.z80: 129-B%.gbc
 	python ../scripts/stripgbc.py $< $@
 129-B%.vpk: 129-B%.z80
-	./nevpk -c -i $< -o $@
+	../maketools/nevpk.exe -c -i $< -o $@
 129-B%.raw: 129-B%.vpk
-	./nedcmake -i $< -o $@ -type 1 -region 1
+	../maketools/nedcmake.exe -i $< -o $@ -type 1 -region 1
 
 enigmaberry-%.tx: enigmaberry.asm prologue-%.bin
 	python ../scripts/ereadertext.py $< $@ $*
 08-K%-EN.tx: 08-K%.asm enigmaberry-EN.tx
 	python ../scripts/ereadertext.py $< $@ EN
 08-K%.o: 08-K%.tx
-	rgbasm -o $@ $<
+	../maketools/rgbasm.exe -o $@ $<
 08-K%.gbc: 08-K%.o
-	rgblink -o $@ $<
+	../maketools/rgblink.exe -o $@ $<
 08-K%.z80: 08-K%.gbc
 	python ../scripts/stripgbc.py $< $@
 08-K%.vpk: 08-K%.z80
-	./nevpk -c -i $< -o $@
+	../maketools/nevpk.exe -c -i $< -o $@
 08-K%.raw: 08-K%.vpk
-	./nedcmake -i $< -o $@ -type 1 -region 1 -raw
+	../maketools/nedcmake.exe -i $< -o $@ -type 1 -region 1 -raw
 
 
 clean:
