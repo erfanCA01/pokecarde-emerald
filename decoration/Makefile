@@ -4,9 +4,9 @@ all: 08-O001-EN.raw 08-O002-EN.raw
 decoration-%.tx: decoration.asm
 	python ../scripts/regionalize.py $< $@ $* $*
 decoration-%.o: decoration-%.tx
-	./rgbasm -o $@ $<
+	rgbasm -o $@ $<
 decoration-%.gbc: decoration-%.o
-	./rgblink -o $@ $<
+	rgblink -o $@ $<
 decoration-%.bin: decoration-%.gbc
 	python ../scripts/stripgbc.py $< $@
 decoration-%.mev: decoration-%.bin
@@ -15,18 +15,18 @@ decoration-%.mev: decoration-%.bin
 prologue-%.tx: prologue.asm
 	python ../scripts/regionalize.py $< $@ $* $*
 prologue-%.o: prologue-%.tx
-	./rgbasm -o $@ $<
+	rgbasm -o $@ $<
 prologue-%.gbc: prologue-%.o
-	./rgblink -o $@ $<
+	rgblink -o $@ $<
 prologue-%.bin: prologue-%.gbc
 	python ../scripts/stripgbc.py $< $@
 
 08-O001-%.tx: 08-O001.asm decoration-%.mev prologue-%.bin
 	python ../scripts/ereadertext.py $< $@ $*
 08-O001-%.o: 08-O001-%.tx
-	./rgbasm -o $@ $<
+	rgbasm -o $@ $<
 08-O001-%.gbc: 08-O001-%.o
-	./rgblink -o $@ $<
+	rgblink -o $@ $<
 08-O001-%.z80: 08-O001-%.gbc
 	python ../scripts/stripgbc.py $< $@
 08-O001-%.vpk: 08-O001-%.z80
@@ -38,9 +38,9 @@ prologue-%.bin: prologue-%.gbc
 tickets-%.tx: tickets.asm
 	python ../scripts/regionalize.py $< $@ $* $*
 tickets-%.o: tickets-%.tx
-	./rgbasm -o $@ $<
+	rgbasm -o $@ $<
 tickets-%.gbc: tickets-%.o
-	./rgblink -o $@ $<
+	rgblink -o $@ $<
 tickets-%.bin: tickets-%.gbc
 	python ../scripts/stripgbc.py $< $@
 dtickets-%.mev: tickets-%.bin
@@ -49,9 +49,9 @@ dtickets-%.mev: tickets-%.bin
 08-O002-%.tx: 08-O002.asm tickets-%.mev prologue-%.bin
 	python ../scripts/ereadertext.py $< $@ $*
 08-O002-%.o: 08-O002-%.tx
-	./rgbasm -o $@ $<
+	rgbasm -o $@ $<
 08-O002-%.gbc: 08-O002-%.o
-	./rgblink -o $@ $<
+	rgblink -o $@ $<
 08-O002-%.z80: 08-O002-%.gbc
 	python ../scripts/stripgbc.py $< $@
 08-O002-%.vpk: 08-O002-%.z80
